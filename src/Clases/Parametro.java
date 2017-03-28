@@ -5,6 +5,15 @@
  */
 package Clases;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author HAZAEL
@@ -18,8 +27,22 @@ public class Parametro {
         
     }
     
-    public void Obtener( Parametro[] parametro ){
-        
+    public static List Obtener(){
+        List Proveedor = new ArrayList();
+        int i = 0;
+        try {
+            Conexion cn = new Conexion();
+            Connection conexion = cn.getConexion();
+            PreparedStatement st = conexion.prepareStatement("select * from parametros");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Proveedor.add(rs.getArray(i));
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Parametro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Proveedor;
     }
     
     public void ObtenerUtilidad( Parametro parametro ){
