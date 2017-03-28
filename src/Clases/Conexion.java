@@ -16,10 +16,10 @@ public class Conexion {
     private String servidor="localhost";
     private String database="tienda";
     private String usuario="root";
-    private String password="";
-    private String url="";
+    private String password="1234";
+    private String url="jdbc:mysql://"+servidor+"/"+database;;
  
-    public Conexion(String servidor, String database, String usuario, String password){
+    public Conexion(){
         try {
  
             this.servidor = servidor;
@@ -27,7 +27,7 @@ public class Conexion {
  
             Class.forName("com.mysql.jdbc.Driver");
             //Class.forName("sun.jdbc.odbc.JdbcOdbcDriver");
-            url="jdbc:mysql://"+servidor+"/"+database;
+            
             conexion=DriverManager.getConnection(url, usuario, password);
             System.out.println("Conexion a Base de Datos "+url+" . . . . .Ok");
  
