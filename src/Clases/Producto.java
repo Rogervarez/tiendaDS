@@ -10,10 +10,10 @@ package Clases;
  * @author HAZAEL
  */
 public class Producto {
-    private String CodBarra;
-    private String nombre;
-    private int inventario;
-    private double costo;
+    public String CodBarra;
+    public String nombre;
+    public int inventario;
+    public double costo;
     
     public Producto(){
         
