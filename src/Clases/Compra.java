@@ -22,11 +22,26 @@ public class Compra {
         
     }
     
-    public void CalcularTotal(){
-        
+    public Compra( int idCompra, Date fecha, Proveedor proveedor, double total, DetalleCompra[] articulo){
+        this.idCompra = idCompra;
+        this.fecha = fecha;
+        this.proveedor = proveedor;
+        this.total = total;
+        this.articulo = articulo;
     }
     
-    public void AgregarItem( DetalleCompra detalleCompra){
+    public void CalcularTotal(){
+        // variable para calcular el total de los productos
+        double total = 0.0;
+        String Salida = "Nombre Producto\tPrecio Del Producto";
+        
+        for ( DetalleCompra articulo1 : articulo ) {
+            Salida += articulo1.toString() + "\n";
+            total += articulo1.getCostoUnitario();
+        }   
+    }
+    
+    public void AgregarItem( DetalleCompra detalleCompra ){
         
     }
 }
