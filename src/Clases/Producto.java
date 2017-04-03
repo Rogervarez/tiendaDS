@@ -15,8 +15,21 @@ public class Producto {
     private int inventario;
     private double costo;
     
+    // Contructo sin argumentos para instaciar
     public Producto(){
         
+    }
+    
+    // Contrucrtor con argumentos para instaciar 
+    public Producto(String codBarra, String nombre, int inventario, double costo){
+        this.CodBarra = codBarra;
+        this.nombre = nombre;
+        this.inventario = inventario;
+        this.costo = costo;
+    }
+    
+    public String toString(){
+        return nombre;
     }
     
 }
