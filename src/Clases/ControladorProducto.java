@@ -5,13 +5,26 @@
  */
 package Clases;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
 /**
  *
  * @author HAZAEL
  */
 public class ControladorProducto {
-    public void Agregar(Producto producto){
-    
+    public void Agregar(Producto producto){  
+      try {
+          Conexion cn = new  Conexion();
+            Connection conexion = cn.getConexion();
+            PreparedStatement st = conexion.prepareStatement("INSERT INTO producto VALUES ("+producto.CodBarra+", "+producto.inventario+
+                    ", "+producto.costo+",'"+producto.nombre+"')");
+            ResultSet rs = st.executeQuery();
+            
+      } catch (Exception e) {
+      }
+
     }
     public void Modificar(Producto producto){
     
