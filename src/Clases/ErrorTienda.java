@@ -5,13 +5,15 @@
  */
 package Clases;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author HAZAEL
  */
-public class ErrorTienda {
+public class ErrorTienda extends Exception {
     
-    public void New( String mensaje){
-        
+    public void New( String mensaje) throws Exception {
+        JOptionPane.showMessageDialog(null, mensaje);
     }
 }
