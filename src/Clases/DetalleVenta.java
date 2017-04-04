@@ -16,12 +16,14 @@ import java.sql.ResultSet;
 
 public class DetalleVenta {
     
-  private Producto producto;
-  private String cantidad;
-  private double PrecioUnitario;
+  public Producto producto;
+  public int cantidad;
+  public double PrecioUnitario;
   
-  public DetalleVenta(){
-      
+  public DetalleVenta(Producto producto, int cantidad, double PrecioUnitario){
+      this.PrecioUnitario = PrecioUnitario;
+      this.cantidad = cantidad;
+      this.producto = producto;
   }
   
 
