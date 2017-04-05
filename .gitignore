@@ -22,3 +22,4 @@ nbproject/*
 nbproject/private/private.properties
 *.class
 build/built-jar.properties
+*.class
