@@ -10,11 +10,11 @@ package Clases;
  * @author HAZAEL
  */
 public class Proveedor {
-    private int idProveedor;
-    private String nombre;
-    private String telefono;
-    private String direccion;
-    private String nit;
+    public int idProveedor;
+    public String nombre;
+    public String telefono;
+    public String direccion;
+    public String nit;
     
     
     public Proveedor(){

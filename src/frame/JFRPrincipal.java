@@ -1,5 +1,6 @@
 package frame;
 
+import Clases.ControladorProveedor;
 import Clases.Parametro;
 import java.awt.Color;
 import java.awt.Font;
@@ -29,6 +30,10 @@ public final class JFRPrincipal extends javax.swing.JFrame {
             Parametro parametro = new Parametro();
             parametro.Obtener();
             parametro.ObtenerUtilidad();
+            ControladorProveedor controladorProveedor = new ControladorProveedor();
+            controladorProveedor.ObtenerIdProveedor();
+                   
+              
         } catch (Exception ex) {
 //            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Try again...");
