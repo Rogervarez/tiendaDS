@@ -5,24 +5,25 @@
  */
 package Clases;
 
+import java.util.ArrayList;
+
 /**
  *
- * @author HAZAEL
+ * @author Roger
  */
 public class ControladorProveedor {
-    public void Agregar( Proveedor proveedor){
+    public void Agregar(Proveedor proveedor){
     }
-    public void Modificar( Proveedor proveedor){
+    public void Modificar(Proveedor proveedor){
     }
-    public void Eliminar( Proveedor proveedor){
+    public void Eliminar(Proveedor proveedor){
     }
-    public void Buscar( Proveedor[] proveedor){
+    public ArrayList <Proveedor> Buscar(String criterio){
     }
-    public void Obtener( Proveedor[] proveedor){
+    public ArrayList <Proveedor> Obtener(){
     }
-    public void ObtenerIdProveedor( int id){
+    public Integer ObtenerIdProveedor(){
     }
-    
     
     public ControladorProveedor(){
         
