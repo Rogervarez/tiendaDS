@@ -12,20 +12,27 @@ package Clases;
 
 public class DetalleVenta {
     
-  private Producto producto;
-  private String cantidad;
-  private double PrecioUnitario;
+  public Producto producto;
+  public int cantidad;
+  public double PrecioUnitario;
   
-  public DetalleVenta(){
-      
+  public DetalleVenta(Producto producto, int cantidad, double PrecioUnitario){
+      this.PrecioUnitario = PrecioUnitario;
+      this.cantidad = cantidad;
+      this.producto = producto;
   }
   
   public void New(String codBarra, int cantidad){
-      
-  }
   
-  public void calcularPrecio( double cantidadPrecio ){
-      
   }
+  public double calcularPrecio(){
+    double precio = 0;
+    precio = cantidad*PrecioUnitario;
+    return precio;
+  }
+
+/*  public void calcularPrecio( double cantidadPrecio ){
+  
+}*/
   
 }
