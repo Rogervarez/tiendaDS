@@ -22,4 +22,5 @@ public class Producto {
         this.costo = costo;
     }
     
+    public Producto(){}
 }

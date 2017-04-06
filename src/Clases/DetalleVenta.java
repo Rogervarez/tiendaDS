@@ -24,6 +24,11 @@ public class DetalleVenta {
   
   public void New(String codBarra, int cantidad){
   
+      
+      
+      
+      
+      
   }
   public double calcularPrecio(){
     double precio = 0;
@@ -34,5 +39,6 @@ public class DetalleVenta {
 /*  public void calcularPrecio( double cantidadPrecio ){
   
 }*/
+  
   
 }

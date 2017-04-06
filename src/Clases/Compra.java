@@ -5,6 +5,7 @@
  */
 package Clases;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -12,11 +13,11 @@ import java.util.Date;
  * @author HAZAEL
  */
 public class Compra {
-    private int idCompra;
-    private Date fecha;
-    private Proveedor proveedor;
-    private double total;
-    private DetalleCompra[] articulo;
+    public int idCompra;
+    public Date fecha;
+    public Proveedor proveedor;
+    public double total;
+    public ArrayList<DetalleVenta> articulo;
     
     public Compra(){
         
