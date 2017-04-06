@@ -31,15 +31,8 @@ public class Parametro {
         List Proveedor = new ArrayList();
         int i = 0;
         try {
-            Conexion cn = new Conexion();
-            Connection conexion = cn.getConexion();
-            PreparedStatement st = conexion.prepareStatement("select * from parametros");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Proveedor.add(rs.getArray(i));
-                i++;
-            }
-        } catch (SQLException ex) {
+  
+        } catch (Exception ex) {
             Logger.getLogger(Parametro.class.getName()).log(Level.SEVERE, null, ex);
         }
         return Proveedor;

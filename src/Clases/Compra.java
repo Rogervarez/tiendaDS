@@ -36,13 +36,13 @@ public class Compra {
     public void AgregarItem( DetalleCompra detalleCompra){
         //DetalleCompra DC = detalleCompra;
         try {
-            Conexion cn = new  Conexion();
+            /*Conexion cn = new  Conexion();
             Connection conexion = cn.getConexion();
             PreparedStatement st = conexion.prepareStatement("INSERT INTO detallecompra VALUES ("+detalleCompra.producto.CodBarra
                     +", "+idCompra+", "+detalleCompra.cantidad+", "+detalleCompra.costoUnitario+")");
             
             ResultSet rs = st.executeQuery();
-
+*/
         } catch (Exception e) {
         }
     }

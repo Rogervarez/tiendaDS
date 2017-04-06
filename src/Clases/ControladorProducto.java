@@ -16,12 +16,7 @@ import java.sql.ResultSet;
 public class ControladorProducto {
     public void Agregar(Producto producto){  
       try {
-          Conexion cn = new  Conexion();
-            Connection conexion = cn.getConexion();
-            PreparedStatement st = conexion.prepareStatement("INSERT INTO producto VALUES ("+producto.CodBarra+", "+producto.inventario+
-                    ", "+producto.costo+",'"+producto.nombre+"')");
-            ResultSet rs = st.executeQuery();
-            
+    
       } catch (Exception e) {
       }
 

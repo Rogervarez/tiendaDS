@@ -36,13 +36,5 @@ public class DetalleVenta {
   }
   public void New(String codBarra, int cantidad){
       
-    try {
-        Conexion cn = new  Conexion();
-        Connection conexion = cn.getConexion();
-        PreparedStatement st = conexion.prepareStatement("INSERT INTO detalleventa VALUES ("+codBarra+", "+cantidad+", "+this.PrecioUnitario+")");
-        ResultSet rs = st.executeQuery();
-                    
-    } catch (Exception e) {
-    }
-  }
+     }
 }
