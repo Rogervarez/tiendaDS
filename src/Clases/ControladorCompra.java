@@ -57,7 +57,8 @@ public class ControladorCompra {
    
    }
    
-   public void ObtenerIdCompra(int id){
+   public void Obtener(String codBarra){
+       
    }
    
    public ControladorCompra(){
