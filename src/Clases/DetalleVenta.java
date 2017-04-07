@@ -5,6 +5,9 @@
  */
 package Clases;
 
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+
 /**
  *
  * @author HAZAEL
@@ -15,6 +18,7 @@ public class DetalleVenta {
   public Producto producto;
   public int cantidad;
   public double PrecioUnitario;
+  DecimalFormat decimal = new DecimalFormat("0.00");
   
   public DetalleVenta(Producto producto, int cantidad, double PrecioUnitario){
       this.PrecioUnitario = PrecioUnitario;
@@ -24,21 +28,23 @@ public class DetalleVenta {
   
   public void New(String codBarra, int cantidad){
   
-      
-      
-      
-      
-      
-  }
-  public double calcularPrecio(){
-    double precio = 0;
-    precio = cantidad*PrecioUnitario;
-    return precio;
-  }
+        this.cantidad = cantidad;
+        Producto p=new Producto();
+        p.setCodBarra(codBarra);
+        }
+  public double calcularPrecio() throws ErrorTienda{
+     Parametro p=new Parametro();
+        try{
+           decimal.setRoundingMode(RoundingMode.CEILING); 
+        return Double.parseDouble(decimal.format(producto.getCosto()/(1-(Double.parseDouble(p.ObtenerUtilidad().getValor())/100))));
+        }catch(ArithmeticException ex){
+            throw new ErrorTienda("Error de Calculo", ex.getMessage());
 
+   }
 /*  public void calcularPrecio( double cantidadPrecio ){
   
 }*/
   
-  
+  } 
+ 
 }

@@ -10,6 +10,38 @@ package Clases;
  * @author HAZAEL
  */
 public class Producto {
+
+    public String getCodBarra() {
+        return CodBarra;
+    }
+
+    public void setCodBarra(String CodBarra) {
+        this.CodBarra = CodBarra;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public int getInventario() {
+        return inventario;
+    }
+
+    public void setInventario(int inventario) {
+        this.inventario = inventario;
+    }
+
+    public double getCosto() {
+        return costo;
+    }
+
+    public void setCosto(double costo) {
+        this.costo = costo;
+    }
     public String CodBarra;
     public String nombre;
     public int inventario;

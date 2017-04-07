@@ -13,7 +13,8 @@ import javax.swing.JOptionPane;
  */
 public class ErrorTienda extends Exception {
     
-    public void New( String mensaje) throws Exception {
-        JOptionPane.showMessageDialog(null, mensaje);
-    }
+        public ErrorTienda(String ClaseMetodo,String mensajeError){
+        super(ClaseMetodo+mensajeError);
+        JOptionPane.showMessageDialog(null, ClaseMetodo+"{------}"+mensajeError);
+}
 }
