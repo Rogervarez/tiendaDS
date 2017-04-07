@@ -84,6 +84,7 @@ public class ControladorProveedor {
     
     public ArrayList <Proveedor> Buscar(String criterio){
         Proveedor proveedor = new Proveedor();
+        ArrayList<Proveedor> listaProveedoresResultados = new ArrayList();
         try{
             iList p = new iList(new ListasTablas("Nombre",criterio));
             p.add(new ListasTablas("Telefono", criterio));
@@ -101,11 +102,12 @@ public class ControladorProveedor {
                 proveedor.telefono = rs.getString("Telefono");
                 proveedor.direccion = rs.getString("Direccion");
                 proveedor.nit = rs.getString("NIT");
+                listaProveedoresResultados.add(proveedor);
             }
         } catch(Exception ex){
         }
         
-        return parametro;
+        return listaProveedoresResultados;
     }
     
     public ArrayList<Proveedor> Obtener() {
