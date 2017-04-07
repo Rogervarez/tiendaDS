@@ -101,13 +101,5 @@ public class ControladorProducto {
         public ControladorProducto(){
         
     }
-        public static void main(String[] args) throws Exception {
-        ControladorProducto cp = new ControladorProducto();    
-        Producto producto = new Producto();
-        producto.CodBarra = "dfg2315defghd";
-        producto.inventario = 12;
-        producto.costo = 12.3;
-        producto.nombre = "golden";
-        cp.Modificar(producto);
-    }
+ 
 }

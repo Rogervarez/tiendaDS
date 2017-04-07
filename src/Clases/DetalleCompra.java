@@ -10,9 +10,9 @@ package Clases;
  * @author HAZAEL
  */
 public class DetalleCompra {
-    private Producto producto;
-    private int cantidad;
-    private double costoUnitario;
+    public Producto producto;
+    public int cantidad;
+    public double costoUnitario;
     
     public DetalleCompra(){
         
