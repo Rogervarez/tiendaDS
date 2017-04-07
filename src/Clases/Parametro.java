@@ -6,14 +6,24 @@
  */
 package Clases;
 
+<<<<<<< HEAD
 import connections.ListasTablas;
 import connections.conection;
 import connections.iList;
+=======
+import java.sql.Connection;
+>>>>>>> sergio/master
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+<<<<<<< HEAD
 import java.util.Arrays;
+=======
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+>>>>>>> sergio/master
 
 /**
  *
@@ -30,6 +40,7 @@ public class Parametro {
         //this.valor = valorParametro;
     }
     
+<<<<<<< HEAD
     public ArrayList <Parametro> Obtener(){
         String[] cm = new String[]{"idParametro", "Nombre", "Valor"};
         conection cn = new conection();
@@ -59,6 +70,24 @@ public class Parametro {
             }
         }
         return listaParametros;
+=======
+    public static List Obtener(){
+        List Proveedor = new ArrayList();
+        int i = 0;
+        try {
+            Conexion cn = new Conexion();
+            Connection conexion = cn.getConexion();
+            PreparedStatement st = conexion.prepareStatement("select * from parametros");
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Proveedor.add(rs.getArray(i));
+                i++;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Parametro.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return Proveedor;
+>>>>>>> sergio/master
     }
     
     public Parametro ObtenerUtilidad(){

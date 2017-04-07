@@ -10,6 +10,7 @@ package Clases;
  * @author HAZAEL
  */
 public class Producto {
+<<<<<<< HEAD
 
     public String getCodBarra() {
         return CodBarra;
@@ -42,6 +43,8 @@ public class Producto {
     public void setCosto(double costo) {
         this.costo = costo;
     }
+=======
+>>>>>>> sergio/master
     public String CodBarra;
     public String nombre;
     public int inventario;

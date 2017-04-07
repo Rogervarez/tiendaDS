@@ -18,7 +18,10 @@ public class DetalleVenta {
   public Producto producto;
   public int cantidad;
   public double PrecioUnitario;
+<<<<<<< HEAD
   DecimalFormat decimal = new DecimalFormat("0.00");
+=======
+>>>>>>> sergio/master
   
   public DetalleVenta(Producto producto, int cantidad, double PrecioUnitario){
       this.PrecioUnitario = PrecioUnitario;
