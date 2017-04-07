@@ -18,6 +18,7 @@ import javax.swing.JOptionPane;
 public class ControladorProducto {
     
             conection cn = new conection();
+            
     public void Agregar(Producto producto) throws Exception{
         
      
@@ -29,7 +30,7 @@ public class ControladorProducto {
             p.add(new ListasTablas("Costo", producto.costo));
             p.add(new ListasTablas("nombre", producto.nombre));
           
-            cn.AgregarRegistro("productos", p, false);
+            cn.AgregarRegistro("productos", p, true);
             
            
             
@@ -63,7 +64,7 @@ public class ControladorProducto {
             cn.Conectar();
             iList p = new iList(new ListasTablas("CodBarra", producto.CodBarra));
             
-            cn.Eliminar("producto", p);
+            cn.Eliminar("productos", p);
          
 
         } catch (Exception ex) {
@@ -78,16 +79,16 @@ public class ControladorProducto {
     
     public  Producto Obtener(String CodigoBarra ) throws Exception{
         Producto producto = new Producto();
-        String[] bs = new String[]{"CodBarra", "Invenario", "Costo", "nombre"};
+        String[] bs = new String[]{"CodBarra", "Inventario", "Costo", "nombre"};
         try{
             cn.Conectar();
             iList p = new iList(new ListasTablas("CodBarra", CodigoBarra));
-            ResultSet rs = cn.BuscarRegistro("producto", bs, p).executeQuery();
+            ResultSet rs = cn.BuscarRegistro("productos", bs, p).executeQuery();
             rs.first();
             producto.CodBarra = rs.getString(1);
-            producto.nombre = rs.getString(2);
-            producto.inventario = Integer.parseInt(rs.getString(3));
-            producto.costo = Double.parseDouble(rs.getString(4));
+            producto.nombre = rs.getString(4);
+            producto.inventario = Integer.parseInt(rs.getString(2));
+            producto.costo = Double.parseDouble(rs.getString(3));
             
         }
         catch(Exception ex){
@@ -99,5 +100,14 @@ public class ControladorProducto {
    
         public ControladorProducto(){
         
+    }
+        public static void main(String[] args) throws Exception {
+        ControladorProducto cp = new ControladorProducto();    
+        Producto producto = new Producto();
+        producto.CodBarra = "dfg2315defghd";
+        producto.inventario = 12;
+        producto.costo = 12.3;
+        producto.nombre = "golden";
+        cp.Modificar(producto);
     }
 }
