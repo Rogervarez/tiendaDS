@@ -2,6 +2,7 @@ package frame;
 
 import Clases.ControladorProveedor;
 import Clases.Parametro;
+import Clases.Proveedor;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -26,6 +27,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         initComponents();
         conection cn = new conection();
         try {
+            Proveedor proveedor = new Proveedor();
             cn.CrearConexion();
             Parametro parametro = new Parametro();
             parametro.Obtener();

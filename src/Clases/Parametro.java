@@ -38,14 +38,13 @@ public class Parametro {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-                //T.model.addElement(rs.getString("idespecialidadMD") + " --- " + rs.getString("nombreEspecialidadMD"));
                 Parametro parametro = new Parametro();
                 parametro.idParametro = rs.getString("idParametro");
                 parametro.nombre = rs.getString("Nombre");
                 parametro.valor = rs.getString("Valor");
                 listaParametros.add(parametro);
             }
-            System.out.println(listaParametros.toString());
+//            System.out.println(listaParametros.toString());
             cn.Desconectar();
         } catch (Exception ex) {
             try {
