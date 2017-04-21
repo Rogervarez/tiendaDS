@@ -8,6 +8,7 @@ package Clases;
 import java.util.Date;
 import Clases.DetalleCompra;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -18,8 +19,8 @@ public class Compra {
     public int idCompra;
     public Date fecha;
     public Proveedor proveedor;
-    public double total;
-    public DetalleCompra[] articulos;
+    public double Total;
+    public List<DetalleCompra> Articulos;
     
     public Compra(){
         
@@ -27,28 +28,17 @@ public class Compra {
     }
     
     public void CalcularTotal(){
-        double t;
-        for(int i=0; i<=articulos.length; i++){
-            t= ((articulos[i].cantidad)*(articulos[i].costoUnitario));
-            total= total + t;
-        
-                }
+        double total = 0;
+       for (DetalleCompra v : Articulos) {
+        total += v.cantidad * v.costoUnitario;
+      }
+      Total = total;
         }
         
     
     
     public void AgregarItem( DetalleCompra detalleCompra){
-       int n=(articulos.length);
-       if(n==0){
-           articulos[n+1]=detalleCompra;
-       }else{
-           for(int i=0; i<=n; i++){
-               if(i==n){
-                   articulos[(i+1)]= detalleCompra;
-               }
-           }
-       }
- 
+      Articulos.add(detalleCompra);
       
           
     }
