@@ -18,11 +18,9 @@ public class DetalleVenta {
   public Producto producto;
   public int cantidad;
   public double PrecioUnitario;
-<<<<<<< HEAD
+
   DecimalFormat decimal = new DecimalFormat("0.00");
-=======
->>>>>>> sergio/master
-  
+
   public DetalleVenta(Producto producto, int cantidad, double PrecioUnitario){
       this.PrecioUnitario = PrecioUnitario;
       this.cantidad = cantidad;
@@ -33,21 +31,18 @@ public class DetalleVenta {
   
         this.cantidad = cantidad;
         Producto p=new Producto();
-        p.setCodBarra(codBarra);
+        p.CodBarra = codBarra;
         }
   public double calcularPrecio() throws ErrorTienda{
      Parametro p=new Parametro();
         try{
            decimal.setRoundingMode(RoundingMode.CEILING); 
-        return Double.parseDouble(decimal.format(producto.getCosto()/(1-(Double.parseDouble(p.ObtenerUtilidad().getValor())/100))));
+        return Double.parseDouble(decimal.format(producto.costo/(1-(Double.parseDouble(p.ObtenerUtilidad().valor)/100))));
         }catch(ArithmeticException ex){
             throw new ErrorTienda("Error de Calculo", ex.getMessage());
 
    }
-/*  public void calcularPrecio( double cantidadPrecio ){
-  
-}*/
-  
+
   } 
  
 }

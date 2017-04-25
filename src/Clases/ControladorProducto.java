@@ -70,7 +70,7 @@ public class ControladorProducto {
         }
         
     }   
-    public void Buscar( Producto[] producto ){
+    public String Buscar(){
         
         
     }

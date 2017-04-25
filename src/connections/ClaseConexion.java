@@ -194,6 +194,14 @@ public abstract class ClaseConexion {
 
     public ClaseConexion() {
     }
+    
+    public PreparedStatement BuscarId(String NombreTabla) throws Exception{
+        String sql="SELECT COUNT(*) from" + NombreTabla+";"
+            + "";
+        PreparedStatement ps = con.prepareStatement(sql);
+        System.out.println(sql);
+        return ps;
+    }
 
     private String agregarMergeSentencia(String servidor, iList campos) {
         String sql = "";

@@ -5,9 +5,12 @@
  */
 package Clases;
 
+
 import connections.ListasTablas;
 import connections.conection;
 import connections.iList;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -39,7 +42,7 @@ public class ControladorCompra {
            
         }
    }
-   public void ActualizarInventario(Compra compra){
+   public void ActualizarInventario(Compra compra) throws ErrorTienda{
        try {
            cn.Conectar();
            iList a = new iList(new ListasTablas("IdCompra", compra.idCompra));
@@ -49,6 +52,7 @@ public class ControladorCompra {
            p.add(new ListasTablas("Total", compra.total));
            cn.ModificarRegistro("Compra", p, a);
        } catch (Exception e) {
+           throw new ErrorTienda("Error al actualizar ", e.getMessage());
        }
    
    }
@@ -57,8 +61,24 @@ public class ControladorCompra {
    
    }
    
-   public void Obtener(String codBarra){
+   public int ObtenerIdCompra() throws ErrorTienda{
        
+       int Id = 0;
+       ResultSet rs;
+       PreparedStatement ps;
+       try {
+           
+           cn.Conectar();
+           ps = cn.BuscarId("compra");
+           rs = ps.executeQuery();
+           while (rs.next()) {
+               Id = rs.getInt("count(*)");
+           }
+           Id = Id+1;
+       } catch (Exception e) {
+           throw new ErrorTienda("Error al obtener el IdCompra", e.getMessage());
+       }
+       return Id;
    }
    
    public ControladorCompra(){

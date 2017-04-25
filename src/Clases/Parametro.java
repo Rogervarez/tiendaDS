@@ -6,33 +6,24 @@
  */
 package Clases;
 
-<<<<<<< HEAD
+
 import connections.ListasTablas;
 import connections.conection;
 import connections.iList;
-=======
-import java.sql.Connection;
->>>>>>> sergio/master
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
-<<<<<<< HEAD
-import java.util.Arrays;
-=======
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
->>>>>>> sergio/master
+
+
 
 /**
  *
  * @author Roger
  */
 public class Parametro {
-    private String idParametro;
-    private String nombre;
-    private String valor;
+    public String idParametro;
+    public String nombre;
+    public String valor;
     
     public Parametro(){
         //this.idParametro = id;
@@ -40,7 +31,7 @@ public class Parametro {
         //this.valor = valorParametro;
     }
     
-<<<<<<< HEAD
+
     public ArrayList <Parametro> Obtener(){
         String[] cm = new String[]{"idParametro", "Nombre", "Valor"};
         conection cn = new conection();
@@ -70,26 +61,9 @@ public class Parametro {
             }
         }
         return listaParametros;
-=======
-    public static List Obtener(){
-        List Proveedor = new ArrayList();
-        int i = 0;
-        try {
-            Conexion cn = new Conexion();
-            Connection conexion = cn.getConexion();
-            PreparedStatement st = conexion.prepareStatement("select * from parametros");
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                Proveedor.add(rs.getArray(i));
-                i++;
-            }
-        } catch (SQLException ex) {
-            Logger.getLogger(Parametro.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return Proveedor;
->>>>>>> sergio/master
     }
-    
+
+
     public Parametro ObtenerUtilidad(){
         Parametro parametro = new Parametro();
         try{
@@ -111,46 +85,5 @@ public class Parametro {
         
         return parametro;
     }
-
-    /**
-     * @return the idParametro
-     */
-    public String getIdParametro() {
-        return idParametro;
-    }
-
-    /**
-     * @param idParametro the idParametro to set
-     */
-    public void setIdParametro(String idParametro) {
-        this.idParametro = idParametro;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-     * @return the valor
-     */
-    public String getValor() {
-        return valor;
-    }
-
-    /**
-     * @param valor the valor to set
-     */
-    public void setValor(String valor) {
-        this.valor = valor;
-    }
 }
+
