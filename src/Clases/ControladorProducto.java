@@ -8,7 +8,9 @@ package Clases;
 import connections.ListasTablas;
 import connections.conection;
 import connections.iList;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,8 +18,8 @@ import javax.swing.JOptionPane;
  * @author HAZAEL
  */
 public class ControladorProducto {
-    conection cn = new conection();
-    public void Agregar(Producto producto) throws Exception{
+    static conection cn = new conection();
+    public static void Agregar(Producto producto) throws Exception{
         
      
         try {
@@ -38,7 +40,7 @@ public class ControladorProducto {
            
         }
     }
-    public void Modificar(Producto producto) throws Exception{
+    public static void Modificar(Producto producto) throws Exception{
             try {
       
             cn.Conectar();
@@ -57,7 +59,7 @@ public class ControladorProducto {
            
         }
     }
-    public void Eliminar(Producto producto){
+    public static void Eliminar(Producto producto){
            try {
             cn.Conectar();
             iList p = new iList(new ListasTablas("CodBarra", producto.CodBarra));
@@ -70,12 +72,31 @@ public class ControladorProducto {
         }
         
     }   
-    public String Buscar(){
-        
-        
+    public static ArrayList<Producto> Buscar(String buscar) throws ErrorTienda{
+        ArrayList<Object> producto = new ArrayList<Object>();
+        try {
+            cn.Conectar();
+            PreparedStatement ps;
+            ResultSet rs;
+            iList condiciones = new iList(new ListasTablas("nombre", buscar));
+            String[] cm = new String[]{"CodBarra", "Inventario", "Costo", "nombre"};
+            ps = cn.BuscarRegistro("producto", cm, condiciones);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                producto.add(rs.getString(0));
+                producto.add(rs.getString(1));
+                producto.add(rs.getString(2));
+                producto.add(rs.getString(3));
+            }
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+        }
+        ArrayList<Producto> productos = (ArrayList) producto;
+        return productos;
+ 
     }
     
-    public  Producto Obtener(String CodigoBarra ) throws Exception{
+    public static  Producto Obtener(String CodigoBarra ) throws ErrorTienda{
         Producto producto = new Producto();
         String[] bs = new String[]{"CodBarra", "Invenario", "Costo", "nombre"};
         try{
@@ -90,7 +111,7 @@ public class ControladorProducto {
             
         }
         catch(Exception ex){
-            cn.Desconectar();
+            
             JOptionPane.showMessageDialog(null, ex.getMessage() + " mensaje: " + ex.getLocalizedMessage());
         }
       return producto;

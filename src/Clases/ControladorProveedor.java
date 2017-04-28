@@ -21,8 +21,9 @@ public class ControladorProveedor {
     //}
     //public void Modificar(Proveedor proveedor){
     //}
-    public void Eliminar(Proveedor P) {
-        conection cn = new conection();
+    static conection cn = new conection();
+    public static void Eliminar(Proveedor P) {
+        
         try {
             cn.Conectar();
             iList cond = new iList(new ListasTablas("idProveedor", P.idProveedor));
@@ -40,9 +41,9 @@ public class ControladorProveedor {
     //public ArrayList <Proveedor> Buscar(String criterio){
     //}
     
-    public ArrayList <Proveedor> Obtener(){
+    public static ArrayList <Proveedor> Obtener(){
         String[] cm = new String[]{"idProveedor", "Nombre", "Telefono", "Direccion", "NIT"};
-        conection cn = new conection();
+        
         ArrayList <Proveedor> listaProveedores = new ArrayList();
         try {
             cn.Conectar();
@@ -50,7 +51,6 @@ public class ControladorProveedor {
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-                //T.model.addElement(rs.getString("idespecialidadMD") + " --- " + rs.getString("nombreEspecialidadMD"));
                 Proveedor proveedor = new Proveedor();
                 proveedor.idProveedor = rs.getInt("idProveedor");
                 proveedor.nombre = rs.getString("Nombre");
@@ -73,35 +73,24 @@ public class ControladorProveedor {
         return listaProveedores;
     }
    
-    public Integer ObtenerIdProveedor(){
-        int elId = 0;
-        String[] cm = new String[]{"idProveedor"};
-        conection cn = new conection();
-        ArrayList <Integer> listaIds = new ArrayList();
-        try {
-            cn.Conectar();
-            PreparedStatement ps = cn.BuscarTodos("proveedor", cm);
-            ResultSet rs = ps.executeQuery();
-            
-            while (rs.next()) {
-                int id = rs.getInt("idProveedor");
-                listaIds.add(id);
-            }
-            cn.Desconectar();
-            System.out.println(listaIds.toString());
-            elId = listaIds.get(listaIds.size() - 1);
-            System.out.println("EL ID: " + elId);
-            
-        } catch (Exception ex) {
-            try {
-                //print.mensaje("Algo ha impedido la lectura de datos: " + ex.getMessage() + "\n" + "Aparentemente el usuario buscado no exixte." + "\n" + "Busque nuevamente con otro ID", "Error ML.guardarConsulta");
-                cn.Desconectar();
-            } catch (Exception o) {
-                System.out.println("No se ha podido desconectar");
-                //print.mensaje("Un grabe error se ha dado mientra usted intentaba buscar paciente: El servidor podría estar apagado, enciéndalo. Intentelo de nuevo y si el error persiste llame a su proveedor" + o.getMessage(), "Error ML.buscarPaciente");
-            }
-        }
-        return elId;
+    public Integer ObtenerIdProveedor() throws ErrorTienda{
+        
+       int Id = 0;
+       ResultSet rs;
+       PreparedStatement ps;
+       try {
+           
+           cn.Conectar();
+           ps = cn.BuscarId("proveedor");
+           rs = ps.executeQuery();
+           while (rs.next()) {
+               Id = rs.getInt("count(*)");
+           }
+           Id = Id+1;
+       } catch (Exception e) {
+           throw new ErrorTienda("Error al obtener el IdCompra", e.getMessage());
+       }
+       return Id;
     }
     
     public ControladorProveedor(){

@@ -5,9 +5,14 @@
  */
 package Clases;
 
+import com.mysql.jdbc.exceptions.DeadlockTimeoutRollbackMarker;
+import connections.ListasTablas;
 import connections.conection;
+import connections.iList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 /**
  *
@@ -15,12 +20,23 @@ import java.sql.ResultSet;
  */
 public class ControladorVenta {
     
-    conection cn = new conection();
-    public void Agregar( Ventas venta ){
-        
+    static conection cn = new conection();
+    public static void Agregar( Venta venta ) throws ErrorTienda, SQLException, Exception{
+        try {
+            cn.Conectar();
+            iList p = new iList(new ListasTablas("IdVenta", venta.idVenta));
+            p.add(new ListasTablas("Fecha", venta.fecha));
+            p.add(new ListasTablas("Cliente", venta.cliente));
+            p.add(new ListasTablas("Total", venta.Total));
+            
+            cn.AgregarRegistro("venta", p, false);
+            
+        } catch (SQLException e) {
+            throw new ErrorTienda("Class ControladorVenta/Agregar", e.getMessage());
+        }
     }
     
-    public int ObtenerIdVenta( int obtenerIdVenta ) throws  ErrorTienda{
+    public static int ObtenerIdVenta( int obtenerIdVenta ) throws  ErrorTienda{
         
        int Id = 0;
        ResultSet rs;
@@ -40,7 +56,31 @@ public class ControladorVenta {
        return Id;
     }
     
-    public void ActualizarInventario( DetalleVenta[] actualizarInventario ){
+    public void ActualizarInventario( ArrayList<DetalleVenta> actualizarInventario ) throws ErrorTienda{
+        String[] camposAMostrar = new String[] {"Cantidad"};
+        iList condiciones = new iList(new ListasTablas("CodBarra", actualizarInventario.get(0).toString()));
+        int cantidad=0;
+        ResultSet rs;
+        try {
+             rs = cn.BuscarRegistro("productos", camposAMostrar, condiciones).executeQuery();
+            while (rs.next()) {
+                cantidad = rs.getInt("Cantidad");
+            }
+            
+            
+         }catch (Exception ex){
+            throw new ErrorTienda("Class ControladorVenta/ActualizarInventario", ex.getMessage());
+         }
         
+        
+        try {
+            int restar = Integer.parseInt(actualizarInventario.get(1).toString());
+            int CantidadNueva = cantidad - restar;
+            iList p = new iList(new ListasTablas("inventario", CantidadNueva));
+            cn.ModificarRegistro("producto", condiciones, p);
+        } catch (Exception ex) {
+            throw new ErrorTienda("Class ControladorVenta/ActualizarInventario", ex.getMessage());
+
+        }
     }
 }

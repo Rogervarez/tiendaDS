@@ -5,51 +5,47 @@
  */
 package Clases;
 
-import connections.ListasTablas;
 import connections.conection;
-import connections.iList;
 import java.util.ArrayList;
 import java.util.Date;
-import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author HAZAEL
  */
 public class Compra {
-    conection cn = new conection();
     public int idCompra;
     public Date fecha;
     public Proveedor proveedor;
     public double total;
-    public ArrayList<DetalleVenta> articulo;
+    public ArrayList<DetalleCompra> articulo;
     
     public Compra(){
         
     }
     
-    public void CalcularTotal(){
-        
+    public double CalcularTotal() throws ErrorTienda{
+         double total1=0;
+          try{
+              for(DetalleCompra dc: this.articulo){
+                  total1=total1+(dc.cantidad*dc.costoUnitario);
+              }
+              this.total = Math.round(total1*100.0)/100.0;
+          }catch(ArithmeticException ex){
+           throw new ErrorTienda("Class Compra/CalcularTotal", ex.getMessage());  
+          }
+          return this.total;
     }
     
-    public void AgregarItem( DetalleCompra detalleCompra){
+    public void AgregarItem( DetalleCompra detalleCompra) throws ErrorTienda{
         
         try {
-      
-            cn.Conectar();
-            iList p = new iList(new ListasTablas("CodBarra", producto.CodBarra));
-            p.add(new ListasTablas("Inventario", producto.inventario));
-            p.add(new ListasTablas("Costo", producto.costo));
-            p.add(new ListasTablas("nombre", producto.nombre));
-          
-            cn.AgregarRegistro("productos", p, false);
-            
+            this.articulo.add(detalleCompra);
+            this.CalcularTotal();
            
-            
-        } catch (Exception ex) {
-            
-            JOptionPane.showMessageDialog(null, ex.getMessage() + " mensaje: " + ex.getLocalizedMessage());
-           
+        }catch(Exception ex) {
+            throw new ErrorTienda("Class Compra/AgregarItem", ex.getMessage());
         }
     }
 }

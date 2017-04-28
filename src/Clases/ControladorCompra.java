@@ -19,8 +19,8 @@ import javax.swing.JOptionPane;
  * @author HAZAEL
  */
 public class ControladorCompra {
-    conection cn = new conection();
-   public void Agregar(Compra compra) throws Exception{
+    static conection cn = new conection();
+   public static void Agregar(Compra compra) throws Exception{
        
      
         try {
@@ -42,7 +42,7 @@ public class ControladorCompra {
            
         }
    }
-   public void ActualizarInventario(Compra compra) throws ErrorTienda{
+   public static void ActualizarInventario(Compra compra) throws ErrorTienda{
        try {
            cn.Conectar();
            iList a = new iList(new ListasTablas("IdCompra", compra.idCompra));
@@ -56,12 +56,12 @@ public class ControladorCompra {
        }
    
    }
-   public void ActualizarPrecioPromedioProducto(ArrayList<DetalleCompra> detalleCompra){
+   public static void ActualizarPrecioPromedioProducto(ArrayList<DetalleCompra> detalleCompra){
        
    
    }
    
-   public int ObtenerIdCompra() throws ErrorTienda{
+   public static int ObtenerIdCompra() throws ErrorTienda{
        
        int Id = 0;
        ResultSet rs;

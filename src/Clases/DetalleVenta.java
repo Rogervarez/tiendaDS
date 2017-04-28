@@ -32,7 +32,7 @@ public class DetalleVenta {
         this.cantidad = cantidad;
         Producto p=new Producto();
         p.CodBarra = codBarra;
-        }
+  }
   public double calcularPrecio() throws ErrorTienda{
      Parametro p=new Parametro();
         try{
