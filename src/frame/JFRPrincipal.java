@@ -11,9 +11,13 @@ import javax.swing.ImageIcon;
 import javax.swing.JPopupMenu;
 import javax.swing.table.JTableHeader;
 import connections.conection;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -26,11 +30,13 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     int x, y;
     JTableHeader tHeadVentas, tHeadCompras, tHeadProductos, tHeadCompra, tHeadProveedores, tHeadDetalleCompra;
     Validacion validacion = new Validacion();
+    DefaultTableModel modelo = new DefaultTableModel();
     public JFRPrincipal() {
         initComponents();
         conection cn = new conection();
+        
         try {
-            cn.CrearConexion();
+            cn.Conectar();
         } catch (Exception ex) {
 //            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println("Try again...");
@@ -54,6 +60,30 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         Ventas(false);
         Productos(false);
         Proveedores(false);
+        LlenarProveedor();
+    }
+     public void LlenarProveedor(){
+        
+        ArrayList<Proveedor> proveedor = new ArrayList();
+        Object[] fila = new Object[5];
+        try {
+            proveedor = ControladorProveedor.Obtener();
+            String[] proveedores = new String[] {"IdProveedor", "Nombre", "Telefono", "Direccion", "NIT"};
+            modelo.setColumnIdentifiers(proveedores);
+            Iterator<Proveedor> prov = proveedor.iterator();
+            while (prov.hasNext()) {
+                fila[0] = prov.next();
+                fila[1] = prov.next();
+                fila[2] = prov.next();
+                fila[3] = prov.next();
+                fila[4] = prov.next();
+                modelo.addRow(fila);
+                tblProveedores.setModel(modelo);
+            }
+        } catch (ErrorTienda ex) {
+            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    
     }
 
     /*  ---- Color a las cabeceras de las tablas ----  */

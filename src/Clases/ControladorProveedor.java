@@ -67,30 +67,30 @@ public class ControladorProveedor {
     //public ArrayList <Proveedor> Buscar(String criterio){
     //}
     
-    public static ArrayList <Proveedor> Obtener() throws ErrorTienda{
+    public static ArrayList<Proveedor> Obtener() throws ErrorTienda{
         String[] cm = new String[]{"idProveedor", "Nombre", "Telefono", "Direccion", "NIT"};
         
-        ArrayList <Proveedor> listaProveedores = new ArrayList();
+        ArrayList <Object> listaProveedores = new ArrayList();
         try {
             cn.Conectar();
             PreparedStatement ps = cn.BuscarTodos("proveedor", cm);
             ResultSet rs = ps.executeQuery();
             
             while (rs.next()) {
-                Proveedor proveedor = new Proveedor();
-                proveedor.idProveedor = rs.getInt("idProveedor");
-                proveedor.nombre = rs.getString("Nombre");
-                proveedor.telefono = rs.getString("Telefono");
-                proveedor.direccion = rs.getString("Direccion");
-                proveedor.nit = rs.getString("NIT");
-                listaProveedores.add(proveedor);
+               
+                listaProveedores.add(rs.getString("IdProveedor"));
+                listaProveedores.add(rs.getString("Nombre"));
+                listaProveedores.add(rs.getString("Telefono"));
+                listaProveedores.add(rs.getString("Direccion"));
+                listaProveedores.add(rs.getString("NIT"));
+                
             }
-            System.out.println(listaProveedores.toString());
             cn.Desconectar();
         } catch (Exception e) {
-            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+            throw new ErrorTienda("Class ControladorProveedor/Buscar",e.getMessage());
         }
-        return listaProveedores;
+        ArrayList<Proveedor> listaProveedor = (ArrayList) listaProveedores;
+        return listaProveedor;
     }
    
     public Integer ObtenerIdProveedor() throws ErrorTienda{
@@ -108,7 +108,7 @@ public class ControladorProveedor {
            }
            Id = Id+1;
        } catch (Exception e) {
-           throw new ErrorTienda("Error al obtener el IdCompra", e.getMessage());
+           throw new ErrorTienda("Error al obtener el IdProveedor", e.getMessage());
        }
        return Id;
     }

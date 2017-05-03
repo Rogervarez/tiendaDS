@@ -11,7 +11,7 @@ public class conection extends ClaseConexion {
         
     }
 
-    private String password = "admin";
+    private String password = "1234";
     private String usuario = "root";
     private String direccionServidor = "localhost";
     private String nombreBaseDatos = "tienda";
