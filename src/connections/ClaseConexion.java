@@ -196,7 +196,7 @@ public abstract class ClaseConexion {
     }
     
     public PreparedStatement BuscarId(String NombreTabla) throws Exception{
-        String sql="SELECT COUNT(*) from" + NombreTabla+";"
+        String sql="SELECT COUNT(*) from " + NombreTabla+";"
             + "";
         PreparedStatement ps = con.prepareStatement(sql);
         System.out.println(sql);

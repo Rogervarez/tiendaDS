@@ -30,7 +30,7 @@ public class ControladorProveedor {
             
             cn.AgregarRegistro("proveedor", p, false);
         } catch (Exception e) {
-            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+            throw new ErrorTienda("Class ControladorProducto/Agregar",e.getMessage());
         }
     }
     
@@ -44,7 +44,7 @@ public class ControladorProveedor {
             p.add(new ListasTablas("NIT", P.nit));
             cn.ModificarRegistro("proveedor", p, a);
         } catch (Exception e) {
-            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+            throw new ErrorTienda("Class ControladorProveedor/Modificar",e.getMessage());
         }
     
     }
@@ -60,7 +60,7 @@ public class ControladorProveedor {
             }
 
         } catch (Exception e) {
-            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+            throw new ErrorTienda("Class ControladorProveedor/Eliminar",e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class ControladorProveedor {
            ps = cn.BuscarId("proveedor");
            rs = ps.executeQuery();
            while (rs.next()) {
-               Id = rs.getInt("count(*)");
+               Id = rs.getInt(1);
            }
            Id = Id+1;
        } catch (Exception e) {

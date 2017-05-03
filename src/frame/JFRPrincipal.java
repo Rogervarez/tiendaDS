@@ -11,13 +11,17 @@ import javax.swing.ImageIcon;
 import javax.swing.JPopupMenu;
 import javax.swing.table.JTableHeader;
 import connections.conection;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableRowSorter;
 
 /**
  *
@@ -30,7 +34,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     int x, y;
     JTableHeader tHeadVentas, tHeadCompras, tHeadProductos, tHeadCompra, tHeadProveedores, tHeadDetalleCompra;
     Validacion validacion = new Validacion();
-    DefaultTableModel modelo = new DefaultTableModel();
+    private TableRowSorter trsFiltro;
     public JFRPrincipal() {
         initComponents();
         conection cn = new conection();
@@ -61,9 +65,10 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         Productos(false);
         Proveedores(false);
         LlenarProveedor();
+        
     }
      public void LlenarProveedor(){
-        
+        DefaultTableModel modelo = new DefaultTableModel();
         ArrayList<Proveedor> proveedor = new ArrayList();
         Object[] fila = new Object[5];
         try {
@@ -83,6 +88,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         } catch (ErrorTienda ex) {
             Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     
     }
 
@@ -232,8 +238,8 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         jSeparator21 = new javax.swing.JSeparator();
         txtProductosBuscar1 = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jSeparator38 = new javax.swing.JSeparator();
+        jLabel6 = new javax.swing.JLabel();
         jpnAgregarProv = new javax.swing.JPanel();
         btnGuardarProveedor = new javax.swing.JButton();
         btnAtrasProveedores = new javax.swing.JButton();
@@ -736,6 +742,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 btnAgregarProveedorMouseExited(evt);
             }
         });
+        btnAgregarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarProveedorActionPerformed(evt);
+            }
+        });
         jpnProveedores.add(btnAgregarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 520, 110, 30));
 
         btnModificarProveedor.setBackground(new java.awt.Color(0, 0, 0));
@@ -752,6 +763,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnModificarProveedorMouseExited(evt);
+            }
+        });
+        btnModificarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarProveedorActionPerformed(evt);
             }
         });
         jpnProveedores.add(btnModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 520, 110, 30));
@@ -795,12 +811,18 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         jLabel7.setText("Listado de los Proveedores actuales:");
         jpnProveedores.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 175, -1, -1));
         jpnProveedores.add(jSeparator21, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 230, -1));
-        jpnProveedores.add(txtProductosBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 670, 30));
 
-        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
-        jLabel4.setText("Proveedor a buscar:");
-        jpnProveedores.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 85, -1, -1));
+        txtProductosBuscar1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProductosBuscar1KeyTyped(evt);
+            }
+        });
+        jpnProveedores.add(txtProductosBuscar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 670, 30));
         jpnProveedores.add(jSeparator38, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 100, 120, 20));
+
+        jLabel6.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
+        jLabel6.setText("Proveedor a buscar:");
+        jpnProveedores.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 85, -1, -1));
 
         getContentPane().add(jpnProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 730, 600));
 
@@ -2061,7 +2083,10 @@ public final class JFRPrincipal extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
         
-                
+        
+        JOptionPane.showMessageDialog(rootPane, "Agregado");
+        tblProveedores.removeAll();
+        LlenarProveedor();
     }//GEN-LAST:event_btnGuardarProveedorActionPerformed
 
     private void btnGuardarModificarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificarProveedorActionPerformed
@@ -2073,6 +2098,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         } catch (ErrorTienda ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        LlenarProveedor();
     }//GEN-LAST:event_btnGuardarModificarProveedorActionPerformed
 
     private void txtNuevoNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoNombreProveedorKeyTyped
@@ -2098,6 +2124,46 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     private void txtNITKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNITKeyTyped
         validacion.Numeros(evt);
     }//GEN-LAST:event_txtNITKeyTyped
+
+    private void btnAgregarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarProveedorActionPerformed
+        ControladorProveedor CProveedor = new ControladorProveedor();
+        int idProveedor=0; 
+        try {
+            idProveedor = CProveedor.ObtenerIdProveedor();
+        } catch (ErrorTienda ex) {
+            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        txtIDProveedor.setText(Integer.toString(idProveedor));
+    }//GEN-LAST:event_btnAgregarProveedorActionPerformed
+
+    private void btnModificarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProveedorActionPerformed
+        txtIDProveedor1.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 0).toString());
+        
+        txtNombreActualProveedor1.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 1).toString());
+       
+        txtDireccionActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 2).toString());
+        
+        txtTelefonoActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 3).toString());
+        
+        txtNitActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 4).toString());
+    }//GEN-LAST:event_btnModificarProveedorActionPerformed
+    
+  
+    private void txtProductosBuscar1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductosBuscar1KeyTyped
+        
+        txtProductosBuscar1.addKeyListener(new KeyAdapter() {
+            //@Override
+            public void keyReleased(final KeyEvent e) {
+                String cadena = (txtProductosBuscar1.getText());
+                txtProductosBuscar1.setText(cadena);
+                repaint();
+                trsFiltro.setRowFilter(RowFilter.regexFilter(txtProductosBuscar1.getText(), 1));   
+
+            }
+        });
+        trsFiltro = new TableRowSorter(tblProveedores.getModel());
+        tblProveedores.setRowSorter(trsFiltro);
+    }//GEN-LAST:event_txtProductosBuscar1KeyTyped
 
     /**
      * @param args the command line arguments
@@ -2196,8 +2262,8 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel37;
     private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel39;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
