@@ -2,7 +2,9 @@ package frame;
 
 import Clases.ControladorProducto;
 import Clases.ControladorProveedor;
+import Clases.ErrorTienda;
 import Clases.Producto;
+import Clases.Proveedor;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.ImageIcon;
@@ -11,6 +13,7 @@ import javax.swing.table.JTableHeader;
 import connections.conection;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,7 +25,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     boolean apagado, principal;
     int x, y;
     JTableHeader tHeadVentas, tHeadCompras, tHeadProductos, tHeadCompra, tHeadProveedores, tHeadDetalleCompra;
-
+    Validacion validacion = new Validacion();
     public JFRPrincipal() {
         initComponents();
         conection cn = new conection();
@@ -806,10 +809,27 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         });
         jpnAgregarProv.add(btnAtrasProveedores, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 480, 110, 30));
         jpnAgregarProv.add(txtDireccionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 290, 410, 30));
+
+        txtNIT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNITKeyTyped(evt);
+            }
+        });
         jpnAgregarProv.add(txtNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 230, 30));
 
         txtNombreProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtNombreProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreProveedorKeyTyped(evt);
+            }
+        });
         jpnAgregarProv.add(txtNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 410, 30));
+
+        txtTelefonoProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtTelefonoProveedorKeyTyped(evt);
+            }
+        });
         jpnAgregarProv.add(txtTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 230, 30));
 
         jPanel45.setBackground(new java.awt.Color(0, 0, 0));
@@ -867,6 +887,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 btnGuardarModificarProveedorMouseExited(evt);
             }
         });
+        btnGuardarModificarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnGuardarModificarProveedorActionPerformed(evt);
+            }
+        });
         jpnModificarProveedor.add(btnGuardarModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 500, 110, 30));
 
         btnAtrasModificarProveedor.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras.png"))); // NOI18N
@@ -884,10 +909,27 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         });
         jpnModificarProveedor.add(btnAtrasModificarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 500, 110, 30));
         jpnModificarProveedor.add(txtNuevoDireccionProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 310, 410, 30));
+
+        txtNuevoNIT.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevoNITKeyTyped(evt);
+            }
+        });
         jpnModificarProveedor.add(txtNuevoNIT, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 400, 230, 30));
 
         txtNuevoNombreProveedor.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        txtNuevoNombreProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevoNombreProveedorKeyTyped(evt);
+            }
+        });
         jpnModificarProveedor.add(txtNuevoNombreProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 130, 410, 30));
+
+        txtNuevoTelefonoProveedor.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNuevoTelefonoProveedorKeyTyped(evt);
+            }
+        });
         jpnModificarProveedor.add(txtNuevoTelefonoProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 220, 230, 30));
 
         jPanel48.setBackground(new java.awt.Color(0, 0, 0));
@@ -1980,10 +2022,52 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarProveedorMouseClicked
 
     private void btnGuardarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarProveedorActionPerformed
-        ControladorProveedor proveedor = new ControladorProveedor();
+        
+        Proveedor proveedor = new Proveedor(Integer.parseInt(txtIDProveedor.getText()), txtNombreProveedor.getText(), txtTelefonoProveedor.getText(), 
+                txtDireccionProveedor.getText(), txtNIT.getText());
+        try {
+            ControladorProveedor.Agregar(proveedor);
+        } catch (ErrorTienda ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
         
                 
     }//GEN-LAST:event_btnGuardarProveedorActionPerformed
+
+    private void btnGuardarModificarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarModificarProveedorActionPerformed
+        
+        Proveedor proveedor = new Proveedor(Integer.parseInt(txtIDProveedor1.getText()), txtNuevoNombreProveedor.getText(), txtNuevoTelefonoProveedor.getText(), 
+                txtNuevoDireccionProveedor.getText(), txtNuevoNIT.getText());
+        try {
+            ControladorProveedor.Modificar(proveedor);
+        } catch (ErrorTienda ex) {
+            JOptionPane.showMessageDialog(null, ex.getMessage());
+        }
+    }//GEN-LAST:event_btnGuardarModificarProveedorActionPerformed
+
+    private void txtNuevoNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoNombreProveedorKeyTyped
+        validacion.SoloLetras(evt);
+    }//GEN-LAST:event_txtNuevoNombreProveedorKeyTyped
+
+    private void txtNuevoTelefonoProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoTelefonoProveedorKeyTyped
+        validacion.Numeros(evt);
+    }//GEN-LAST:event_txtNuevoTelefonoProveedorKeyTyped
+
+    private void txtNuevoNITKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoNITKeyTyped
+        validacion.Numeros(evt);
+    }//GEN-LAST:event_txtNuevoNITKeyTyped
+
+    private void txtNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProveedorKeyTyped
+        validacion.SoloLetras(evt);
+    }//GEN-LAST:event_txtNombreProveedorKeyTyped
+
+    private void txtTelefonoProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTelefonoProveedorKeyTyped
+        validacion.Numeros(evt);
+    }//GEN-LAST:event_txtTelefonoProveedorKeyTyped
+
+    private void txtNITKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNITKeyTyped
+        validacion.Numeros(evt);
+    }//GEN-LAST:event_txtNITKeyTyped
 
     /**
      * @param args the command line arguments

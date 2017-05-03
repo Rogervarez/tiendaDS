@@ -20,6 +20,14 @@ public class Proveedor {
     public Proveedor(){
     
     }
+
+    public Proveedor(int idProveedor, String nombre, String telefono, String direccion, String nit) {
+        this.idProveedor = idProveedor;
+        this.nombre = nombre;
+        this.telefono = telefono;
+        this.direccion = direccion;
+        this.nit = nit;
+    }
     
     
 }
