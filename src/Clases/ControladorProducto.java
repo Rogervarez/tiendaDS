@@ -34,10 +34,8 @@ public class ControladorProducto {
             
            
             
-        } catch (Exception ex) {
-            cn.Desconectar();
-            JOptionPane.showMessageDialog(null, ex.getMessage() + " mensaje: " + ex.getLocalizedMessage());
-           
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
     }
     public static void Modificar(Producto producto) throws Exception{
@@ -53,13 +51,11 @@ public class ControladorProducto {
             
            
             
-        } catch (Exception ex) {
-            cn.Desconectar();
-            JOptionPane.showMessageDialog(null, ex.getMessage() + " mensaje: " + ex.getLocalizedMessage());
-           
+       } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
     }
-    public static void Eliminar(Producto producto){
+    public static void Eliminar(Producto producto) throws ErrorTienda{
            try {
             cn.Conectar();
             iList p = new iList(new ListasTablas("CodBarra", producto.CodBarra));
@@ -67,8 +63,8 @@ public class ControladorProducto {
             cn.Eliminar("producto", p);
          
 
-        } catch (Exception ex) {
-           JOptionPane.showMessageDialog(null, ex.getMessage() + " mensaje: " + ex.getLocalizedMessage());
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
         
     }   

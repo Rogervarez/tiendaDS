@@ -17,12 +17,38 @@ import java.util.ArrayList;
  * @author Roger
  */
 public class ControladorProveedor {
-    //public void Agregar(Proveedor proveedor){
-    //}
-    //public void Modificar(Proveedor proveedor){
-    //}
+    
     static conection cn = new conection();
-    public static void Eliminar(Proveedor P) {
+    public static void Agregar(Proveedor P) throws ErrorTienda{
+        try {
+            cn.Conectar();
+            iList p = new iList(new ListasTablas("IdProveedor", P.idProveedor));
+            p.add(new ListasTablas("Nombre", P.nombre));
+            p.add(new ListasTablas("Telefono", P.telefono));
+            p.add(new ListasTablas("Direccion", P.direccion));
+            p.add(new ListasTablas("NIT", P.nit));
+            
+            cn.AgregarRegistro("proveedor", p, false);
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+        }
+    }
+    
+    public static void Modificar(Proveedor P) throws ErrorTienda{
+        try {
+            cn.Conectar();
+            iList a = new iList(new ListasTablas("IdProveedor", P.idProveedor));
+            iList p = new iList(new ListasTablas("Nombre", P.nombre));
+            p.add(new ListasTablas("Telefono", P.telefono));
+            p.add(new ListasTablas("Direccion", P.direccion));
+            p.add(new ListasTablas("NIT", P.nit));
+            cn.ModificarRegistro("proveedor", p, a);
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
+        }
+    
+    }
+    public static void Eliminar(Proveedor P) throws ErrorTienda {
         
         try {
             cn.Conectar();
@@ -33,15 +59,15 @@ public class ControladorProveedor {
                 System.out.println("Registro eliminado exitosamente");
             }
 
-        } catch (Exception ex) {
-            System.out.println("No se pudo eliminar el registro" + ex);
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
     }
 
     //public ArrayList <Proveedor> Buscar(String criterio){
     //}
     
-    public static ArrayList <Proveedor> Obtener(){
+    public static ArrayList <Proveedor> Obtener() throws ErrorTienda{
         String[] cm = new String[]{"idProveedor", "Nombre", "Telefono", "Direccion", "NIT"};
         
         ArrayList <Proveedor> listaProveedores = new ArrayList();
@@ -61,14 +87,8 @@ public class ControladorProveedor {
             }
             System.out.println(listaProveedores.toString());
             cn.Desconectar();
-        } catch (Exception ex) {
-            try {
-                //print.mensaje("Algo ha impedido la lectura de datos: " + ex.getMessage() + "\n" + "Aparentemente el usuario buscado no exixte." + "\n" + "Busque nuevamente con otro ID", "Error ML.guardarConsulta");
-                cn.Desconectar();
-            } catch (Exception o) {
-                System.out.println("No se ha podido desconectar");
-                //print.mensaje("Un grabe error se ha dado mientra usted intentaba buscar paciente: El servidor podría estar apagado, enciéndalo. Intentelo de nuevo y si el error persiste llame a su proveedor" + o.getMessage(), "Error ML.buscarPaciente");
-            }
+        } catch (Exception e) {
+            throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
         return listaProveedores;
     }
