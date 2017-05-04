@@ -43,20 +43,50 @@ public class ControladorCompra {
         }
    }
    public static void ActualizarInventario(Compra compra) throws ErrorTienda{
+       int cantidadActual=0;
        try {
            cn.Conectar();
-           iList a = new iList(new ListasTablas("IdCompra", compra.idCompra));
-           iList p = new iList(new ListasTablas("Fecha", compra.fecha));
-           p.add(new ListasTablas("Cantidad", compra.articulo.get(1).cantidad));
-           p.add(new ListasTablas("IdProveedor", compra.proveedor.idProveedor));
-           p.add(new ListasTablas("Total", compra.total));
-           cn.ModificarRegistro("Compra", p, a);
+           ResultSet cantidad;
+           String[] campos = new String[] {"Cantidad"};
+           iList condiciones = new iList(new ListasTablas("CodBarra", compra.articulo.get(0).producto.CodBarra));
+           cantidad = cn.BuscarRegistro("producto", campos, condiciones).executeQuery();
+           while (cantidad.next()) {
+               cantidadActual = cantidad.getInt(0);
+           }
+           iList nuevosCampos = new iList(new ListasTablas("Cantidad", (cantidadActual+compra.articulo.get(0).cantidad)));
+           cn.ModificarRegistro("producto", nuevosCampos, condiciones);
+           
        } catch (Exception e) {
            throw new ErrorTienda("Error al actualizar ", e.getMessage());
        }
    
    }
-   public static void ActualizarPrecioPromedioProducto(ArrayList<DetalleCompra> detalleCompra){
+   public static void ActualizarPrecioPromedioProducto(ArrayList<DetalleCompra> detalleCompra) throws ErrorTienda{
+       int cantidad=0;
+       double costo=0, nuevoCosto=0;
+       String nombreTabla;
+       String[] campoCantidad = new String[] {"Cantidad"};
+       String[] campoCosto = new String[] {"Costo"};
+       try {
+           cn.Conectar();
+           
+           ResultSet rsCantidad, rsPrecio;
+           iList condiciones = new iList(new ListasTablas("CodBarra", detalleCompra.get(0).producto.CodBarra));
+           rsCantidad = cn.BuscarRegistro("producto", campoCantidad, condiciones).executeQuery();
+           while (rsCantidad.next()) {
+               cantidad = rsCantidad.getInt(0);
+           }
+           
+           rsPrecio = cn.BuscarRegistro("producto", campoCosto, condiciones).executeQuery();
+           while (rsPrecio.next()) {
+               costo = rsPrecio.getDouble(0);
+           }
+           nuevoCosto = (cantidad*costo)+(detalleCompra.get(0).cantidad*detalleCompra.get(0).costoUnitario);
+           iList nuevosCampos = new iList(new ListasTablas("producto", nuevoCosto));
+           cn.ModificarRegistro("producto", nuevosCampos, condiciones);
+       } catch (Exception e) {
+           throw new ErrorTienda("Error al Actualizar precio promedio", e.getMessage());
+       }
        
    
    }
