@@ -47,7 +47,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         }
         tHeadVentas = tblProductosVender.getTableHeader();
         tHeadCompras = tblCompras.getTableHeader();
-        tHeadProductos = jtblProductos.getTableHeader();
+        tHeadProductos = tblProductos.getTableHeader();
         tHeadCompra = tblCompra.getTableHeader();
         tHeadProveedores = tblProveedores.getTableHeader();
         tHeadDetalleCompra = tblDetalleCompra.getTableHeader();
@@ -91,7 +91,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         
     
     }
-
+     
     /*  ---- Color a las cabeceras de las tablas ----  */
     public void cabezera() {
         Font fuente = new Font("Tahoma", Font.BOLD, 12);
@@ -357,7 +357,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         txtCostoProd = new javax.swing.JTextField();
         jpnProductos = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jtblProductos = new javax.swing.JTable();
+        tblProductos = new javax.swing.JTable();
         btnNuevoProducto = new javax.swing.JButton();
         btnBuscarProducto = new javax.swing.JButton();
         btnModificarProducto = new javax.swing.JButton();
@@ -721,6 +721,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnEliminarProveedorMouseExited(evt);
+            }
+        });
+        btnEliminarProveedor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProveedorActionPerformed(evt);
             }
         });
         jpnProveedores.add(btnEliminarProveedor, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 520, 110, 30));
@@ -1435,12 +1440,12 @@ public final class JFRPrincipal extends javax.swing.JFrame {
 
         jpnProductos.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jtblProductos =new javax.swing.JTable(){
+        tblProductos =new javax.swing.JTable(){
             public boolean isCellEditable(int rowIndex, int colIndex){
                 return false;
             }
         };
-        jtblProductos.setModel(new javax.swing.table.DefaultTableModel(
+        tblProductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -1467,8 +1472,8 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
-        jtblProductos.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jtblProductos);
+        tblProductos.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(tblProductos);
 
         jpnProductos.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, 650, 260));
 
@@ -1515,6 +1520,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 btnModificarProductoMouseExited(evt);
             }
         });
+        btnModificarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarProductoActionPerformed(evt);
+            }
+        });
         jpnProductos.add(btnModificarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 510, 110, 30));
 
         btnEliminarProducto.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/eliminar.png"))); // NOI18N
@@ -1525,6 +1535,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
             }
             public void mouseExited(java.awt.event.MouseEvent evt) {
                 btnEliminarProductoMouseExited(evt);
+            }
+        });
+        btnEliminarProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEliminarProductoActionPerformed(evt);
             }
         });
         jpnProductos.add(btnEliminarProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 510, 110, 30));
@@ -1568,6 +1583,11 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 btnAgregarNuevoProductoMouseExited(evt);
             }
         });
+        btnAgregarNuevoProducto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarNuevoProductoActionPerformed(evt);
+            }
+        });
         jpnNuevoProducto.add(btnAgregarNuevoProducto, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 500, 110, 30));
 
         btnSalirProductos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/iconos/atras.png"))); // NOI18N
@@ -1587,9 +1607,25 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         });
         jpnNuevoProducto.add(btnSalirProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 500, 110, 30));
 
-        txtCodBarraProductos.setEditable(false);
+        txtCodBarraProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtCodBarraProductosKeyTyped(evt);
+            }
+        });
         jpnNuevoProducto.add(txtCodBarraProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 180, 220, 30));
+
+        txtNombreProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtNombreProductosKeyTyped(evt);
+            }
+        });
         jpnNuevoProducto.add(txtNombreProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 240, 270, 30));
+
+        txtPrecioProductos.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtPrecioProductosKeyTyped(evt);
+            }
+        });
         jpnNuevoProducto.add(txtPrecioProductos, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 360, 80, 30));
 
         jPanel46.setBackground(new java.awt.Color(0, 0, 0));
@@ -1626,6 +1662,12 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         jLabel2.setText("Inventario:");
         jpnNuevoProducto.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, -1, 10));
+
+        txtProductoInventario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                txtProductoInventarioKeyTyped(evt);
+            }
+        });
         jpnNuevoProducto.add(txtProductoInventario, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 300, 60, 30));
         jpnNuevoProducto.add(jSeparator39, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 260, 50, 20));
 
@@ -2095,10 +2137,14 @@ public final class JFRPrincipal extends javax.swing.JFrame {
                 txtNuevoDireccionProveedor.getText(), txtNuevoNIT.getText());
         try {
             ControladorProveedor.Modificar(proveedor);
+            JOptionPane.showMessageDialog(rootPane, "Datos modificados");
         } catch (ErrorTienda ex) {
             JOptionPane.showMessageDialog(null, ex.getMessage());
         }
+        tblProveedores.removeAll();
         LlenarProveedor();
+        jpnProveedores.setVisible(true);
+        jpnModificarProveedor.setVisible(false);
     }//GEN-LAST:event_btnGuardarModificarProveedorActionPerformed
 
     private void txtNuevoNombreProveedorKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNuevoNombreProveedorKeyTyped
@@ -2141,9 +2187,9 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         
         txtNombreActualProveedor1.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 1).toString());
        
-        txtDireccionActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 2).toString());
+        txtTelefonoActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 2).toString());
         
-        txtTelefonoActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 3).toString());
+        txtDireccionActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 3).toString());
         
         txtNitActualProveedor.setText(tblProveedores.getValueAt(tblProveedores.getSelectedRow(), 4).toString());
     }//GEN-LAST:event_btnModificarProveedorActionPerformed
@@ -2164,6 +2210,95 @@ public final class JFRPrincipal extends javax.swing.JFrame {
         trsFiltro = new TableRowSorter(tblProveedores.getModel());
         tblProveedores.setRowSorter(trsFiltro);
     }//GEN-LAST:event_txtProductosBuscar1KeyTyped
+
+    private void btnAgregarNuevoProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarNuevoProductoActionPerformed
+         Producto producto = new Producto(txtCodBarraProductos.getText(), txtNombreProductos.getText(), 
+                 Integer.parseInt(txtProductoInventario.getText()), Double.parseDouble(txtCostoProd.getText()));
+        try {
+            ControladorProducto.Agregar(producto);
+        } catch (ErrorTienda ex) {
+            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        JOptionPane.showMessageDialog(rootPane, "Agregado");
+    }//GEN-LAST:event_btnAgregarNuevoProductoActionPerformed
+
+    private void btnModificarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarProductoActionPerformed
+        int seleccion = tblProductos.getSelectedRow(); 
+        if (tblProductos.isRowSelected(seleccion)) {
+            
+            if (seleccion>=0) {
+                
+            
+                Producto producto = new Producto();
+                DefaultTableModel modeloProductos=(DefaultTableModel) tblProductos.getModel();
+
+
+                String codBarra= tblProductos.getValueAt(seleccion, 0).toString();
+                String nombre = tblProductos.getValueAt(seleccion, 1).toString();
+                int inventario = Integer.parseInt(tblProductos.getValueAt(seleccion, 2).toString());
+                double costo = Double.parseDouble(tblProductos.getValueAt(seleccion, 3).toString());
+
+                producto.CodBarra = codBarra;
+                producto.nombre = nombre;
+                producto.inventario = inventario;
+                producto.costo = costo;
+
+                try {
+                    ControladorProducto.Modificar(producto);
+                } catch (ErrorTienda ex) {
+                    Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            JOptionPane.showMessageDialog(null, "Modificado con exito");
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Seleccione una fila, si la tabla tiene datos");
+        }
+    }//GEN-LAST:event_btnModificarProductoActionPerformed
+
+    private void btnEliminarProveedorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProveedorActionPerformed
+        int seleccion;
+        seleccion = tblProveedores.getSelectedRow();
+        Proveedor proveedor = new Proveedor(Integer.parseInt(tblProveedores.getValueAt(seleccion, 0).toString()), 
+                tblProveedores.getValueAt(seleccion,1).toString(), tblProveedores.getValueAt(seleccion, 2).toString(), tblProveedores.getValueAt(seleccion, 3).toString(),
+                tblProveedores.getValueAt(seleccion,1).toString());
+        try {
+            ControladorProveedor.Eliminar(proveedor);
+            JOptionPane.showMessageDialog(rootPane, "Proveedor eliminado");
+        } catch (ErrorTienda ex) {
+            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        tblProveedores.removeAll();
+        LlenarProveedor();
+    }//GEN-LAST:event_btnEliminarProveedorActionPerformed
+
+    private void btnEliminarProductoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarProductoActionPerformed
+        int seleccion; 
+        seleccion = tblProductos.getSelectedRow();
+        Producto producto = new Producto(tblProductos.getValueAt(seleccion, 0).toString(), tblProductos.getValueAt(seleccion, 1).toString(),
+                Integer.parseInt(tblProductos.getValueAt(seleccion, 2).toString()), Double.parseDouble(tblProductos.getValueAt(seleccion, 3).toString()));
+        try {
+            ControladorProducto.Eliminar(producto);
+            JOptionPane.showMessageDialog(rootPane, "Producto elimnado");
+        } catch (ErrorTienda ex) {
+            Logger.getLogger(JFRPrincipal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnEliminarProductoActionPerformed
+
+    private void txtCodBarraProductosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodBarraProductosKeyTyped
+        validacion.SoloNumeros(evt);
+    }//GEN-LAST:event_txtCodBarraProductosKeyTyped
+
+    private void txtNombreProductosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNombreProductosKeyTyped
+        validacion.SoloLetras(evt);
+    }//GEN-LAST:event_txtNombreProductosKeyTyped
+
+    private void txtProductoInventarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtProductoInventarioKeyTyped
+       validacion.SoloNumeros(evt);
+    }//GEN-LAST:event_txtProductoInventarioKeyTyped
+
+    private void txtPrecioProductosKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPrecioProductosKeyTyped
+        validacion.Decimales(evt);
+    }//GEN-LAST:event_txtPrecioProductosKeyTyped
 
     /**
      * @param args the command line arguments
@@ -2342,7 +2477,6 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jpnSubMenu;
     private javax.swing.JPanel jpnTercero;
     private javax.swing.JPanel jpnVentas;
-    private javax.swing.JTable jtblProductos;
     private javax.swing.JLabel lbl11;
     private javax.swing.JLabel lbl12;
     private javax.swing.JLabel lbl13;
@@ -2392,6 +2526,7 @@ public final class JFRPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable tblCompra;
     private javax.swing.JTable tblCompras;
     private javax.swing.JTable tblDetalleCompra;
+    private javax.swing.JTable tblProductos;
     private javax.swing.JTable tblProductosVender;
     private javax.swing.JTable tblProveedores;
     private javax.swing.JTextField txtCantidad;

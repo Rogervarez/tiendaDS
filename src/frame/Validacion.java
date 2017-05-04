@@ -27,4 +27,20 @@ public class Validacion {
         }
     
     }
+    
+    public void SoloNumeros(KeyEvent evt){
+        s= evt.getKeyChar();
+        if (!Character.isDigit(s)) {
+            evt.consume();
+        }
+        
+    }
+    
+    public void Decimales(KeyEvent evt){
+        s = evt.getKeyChar();
+        if(!Character.isDigit(s) && s != KeyEvent.VK_PERIOD){
+            evt.consume();
+        }
+    
+    }
 }

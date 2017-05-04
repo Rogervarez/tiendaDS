@@ -19,7 +19,7 @@ import javax.swing.JOptionPane;
  */
 public class ControladorProducto {
     static conection cn = new conection();
-    public static void Agregar(Producto producto) throws Exception{
+    public static void Agregar(Producto producto) throws ErrorTienda{
         
      
         try {
@@ -38,7 +38,7 @@ public class ControladorProducto {
             throw new ErrorTienda("Class ControladorProducto/Buscar",e.getMessage());
         }
     }
-    public static void Modificar(Producto producto) throws Exception{
+    public static void Modificar(Producto producto) throws ErrorTienda{
             try {
       
             cn.Conectar();
